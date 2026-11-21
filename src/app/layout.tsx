@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
-import { CartProvider } from '@/lib/cart'
+import Providers from '@/components/Providers'
 
 const geist = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 
@@ -15,13 +15,13 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${geist.variable} antialiased`}>
       <body className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
-        <CartProvider>
+        <Providers>
           <Header />
           <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">{children}</main>
           <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
             Volt is a demo store: products are fictional and no payments are processed.
           </footer>
-        </CartProvider>
+        </Providers>
       </body>
     </html>
   )

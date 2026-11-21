@@ -1,10 +1,13 @@
 'use client'
+import { Minus, Plus, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { useCart } from '@/lib/cart'
+import { cartTotal, useCart } from '@/lib/cart'
 import { byId, money } from '@/lib/data'
 
 export default function Cart() {
-  const { lines, total, setQty } = useCart()
+  const lines = useCart((s) => s.lines)
+  const setQty = useCart((s) => s.setQty)
+  const total = cartTotal(lines)
   const items = Object.entries(lines).flatMap(([id, q]) => {
     const p = byId(id)
     return p ? [{ p, q }] : []
@@ -13,7 +16,7 @@ export default function Cart() {
   if (!items.length)
     return (
       <div className="py-20 text-center">
-        <p className="text-5xl">🛒</p>
+        <ShoppingCart className="mx-auto size-12 text-slate-300" strokeWidth={1.5} />
         <p className="mt-4 text-slate-500">Your cart is empty.</p>
         <Link href="/catalog" className="mt-6 inline-block rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white">Browse products</Link>
       </div>
@@ -31,9 +34,9 @@ export default function Cart() {
               <p className="font-bold">{money(p.price)}</p>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <button aria-label="Decrease" onClick={() => setQty(p.id, q - 1)} className="size-8 rounded-full border border-slate-200 hover:border-orange-400">−</button>
+              <button aria-label="Decrease" onClick={() => setQty(p.id, q - 1)} className="flex size-8 items-center justify-center rounded-full border border-slate-200 hover:border-orange-400"><Minus className="size-4" /></button>
               <span className="w-5 text-center">{q}</span>
-              <button aria-label="Increase" onClick={() => setQty(p.id, q + 1)} className="size-8 rounded-full border border-slate-200 hover:border-orange-400">+</button>
+              <button aria-label="Increase" onClick={() => setQty(p.id, q + 1)} className="flex size-8 items-center justify-center rounded-full border border-slate-200 hover:border-orange-400"><Plus className="size-4" /></button>
             </div>
           </div>
         ))}

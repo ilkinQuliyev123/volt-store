@@ -1,10 +1,8 @@
-'use client'
 import Link from 'next/link'
-import { useCart } from '@/lib/cart'
 import { money, type Product } from '@/lib/data'
+import AddToCart from './AddToCart'
 
 export default function ProductCard({ p }: { p: Product }) {
-  const { add } = useCart()
   return (
     <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-4 transition hover:shadow-md">
       <Link href={`/product/${p.id}`} className="flex aspect-square items-center justify-center rounded-xl bg-slate-50 text-6xl">
@@ -17,9 +15,7 @@ export default function ProductCard({ p }: { p: Product }) {
         <span className="text-lg font-bold">{money(p.price)}</span>
         {p.old && <span className="text-sm text-slate-400 line-through">{money(p.old)}</span>}
       </div>
-      <button onClick={() => add(p.id)} className="mt-3 rounded-full bg-orange-500 py-2 text-sm font-semibold text-white hover:bg-orange-600 active:scale-95">
-        Add to cart
-      </button>
+      <AddToCart id={p.id} className="mt-3 py-2 text-sm" />
     </div>
   )
 }

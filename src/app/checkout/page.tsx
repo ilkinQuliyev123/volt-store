@@ -1,19 +1,22 @@
 'use client'
+import { PackageCheck } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useCart } from '@/lib/cart'
+import { cartCount, cartTotal, useCart } from '@/lib/cart'
 import { money } from '@/lib/data'
 
 const field = 'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-orange-400'
 
 export default function Checkout() {
-  const { total, count, clear } = useCart()
+  const lines = useCart((s) => s.lines)
+  const clear = useCart((s) => s.clear)
+  const [count, total] = [cartCount(lines), cartTotal(lines)]
   const [order, setOrder] = useState<string | null>(null)
 
   if (order)
     return (
       <div className="py-20 text-center">
-        <p className="text-5xl">✅</p>
+        <PackageCheck className="mx-auto size-12 text-green-500" strokeWidth={1.5} />
         <h1 className="mt-4 text-2xl font-bold">Thank you for your order!</h1>
         <p className="mt-2 text-slate-500">Order {order} was placed (demo — nothing was charged).</p>
         <Link href="/" className="mt-6 inline-block rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white">Continue shopping</Link>

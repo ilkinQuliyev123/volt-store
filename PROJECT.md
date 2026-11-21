@@ -20,8 +20,11 @@ Repo: github.com/ilkinQuliyev123/volt-store (public)
 - [x] Data (src/lib/data.ts, 16 demo products, emoji icons), cart context (localStorage)
 - [x] Pages: home, catalog (category/search/sort), product, cart, checkout + success
 - [x] E2E test: Playwright script (scratchpad, 16 checks) all pass on production build
-- [ ] GitHub repo pushed
+- [x] PLAN.md written (project + functionality plan). Libraries added: lucide-react, zustand (persisted cart, manual rehydrate in Providers), sonner (toasts). Old context cart removed. 16 E2E checks pass.
+- [ ] Phase 1 layout rewrite BLOCKED until owner sends reference screenshots (kontakt.az blocks bots, do not bypass)
+- [x] GitHub repo pushed
 - [ ] Deployed (Netlify) + added to portfolio with screenshot
 ## Next steps
 1. Push to GitHub (public), deploy to Netlify, add to portfolio
 2. Nice-to-have: real product photos, wishlist, brand filter
+- Folder sits inside the Desktop git repo: always git init inside the project folder, never git add from the parent.
