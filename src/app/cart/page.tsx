@@ -2,6 +2,7 @@
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { cartTotal, useCart } from '@/lib/cart'
+import ProductArt from '@/components/ProductArt'
 import { byId, money } from '@/lib/data'
 
 export default function Cart() {
@@ -28,7 +29,7 @@ export default function Cart() {
         <h1 className="text-2xl font-bold">Cart</h1>
         {items.map(({ p, q }) => (
           <div key={p.id} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4">
-            <span className="flex size-16 items-center justify-center rounded-xl bg-slate-50 text-3xl">{p.icon}</span>
+            <ProductArt kind={p.kind} hue={p.hue} className="size-16 shrink-0 rounded-xl" />
             <div className="flex-1">
               <Link href={`/product/${p.id}`} className="text-sm font-medium hover:text-orange-500">{p.name}</Link>
               <p className="font-bold">{money(p.price)}</p>

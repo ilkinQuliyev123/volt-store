@@ -21,7 +21,8 @@ Repo: github.com/ilkinQuliyev123/volt-store (public)
 - [x] Pages: home, catalog (category/search/sort), product, cart, checkout + success
 - [x] E2E test: Playwright script (scratchpad, 16 checks) all pass on production build
 - [x] PLAN.md written (project + functionality plan). Libraries added: lucide-react, zustand (persisted cart, manual rehydrate in Providers), sonner (toasts). Old context cart removed. 16 E2E checks pass.
-- [ ] Phase 1 layout rewrite BLOCKED until owner sends reference screenshots (kontakt.az blocks bots, do not bypass)
+- [x] Phase 1-3 done WITHOUT reference screenshots (kontakt.az blocks bots, not bypassed): own pro layout. 30 products (fictional brands), SVG product art (ProductArt.tsx), hero slider, perks strip, category grid, deals/new/brands, catalog filters (category, brand, price, on-sale, sort), product page (specs, related), footer. 22 E2E checks pass.
+- [ ] If owner sends kontakt.az screenshots or a Pexels key: restyle layout / swap SVG art for licensed photos
 - [x] GitHub repo pushed
 - [ ] Deployed (Netlify) + added to portfolio with screenshot
 ## Next steps

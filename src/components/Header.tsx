@@ -8,6 +8,7 @@ export default function Header() {
   const count = useCart((s) => cartCount(s.lines))
   return (
     <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur">
+      <div className="bg-slate-900 py-1.5 text-center text-xs text-slate-300">Free delivery on orders over $100 · 14-day returns</div>
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
         <Link href="/" className="flex items-center gap-1 text-xl font-bold tracking-tight">
           <Zap className="size-5 fill-orange-500 text-orange-500" /> Volt

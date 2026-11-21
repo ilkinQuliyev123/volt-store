@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import './globals.css'
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Providers from '@/components/Providers'
 
@@ -18,9 +19,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <Providers>
           <Header />
           <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">{children}</main>
-          <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-            Volt is a demo store: products are fictional and no payments are processed.
-          </footer>
+          <Footer />
         </Providers>
       </body>
     </html>

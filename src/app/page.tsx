@@ -1,45 +1,76 @@
+import { Headset, RotateCcw, ShieldCheck, Truck } from 'lucide-react'
 import Link from 'next/link'
+import HeroSlider from '@/components/HeroSlider'
+import ProductArt from '@/components/ProductArt'
 import ProductCard from '@/components/ProductCard'
-import { categories, products } from '@/lib/data'
+import { brands, categories, discount, products } from '@/lib/data'
+
+const perks = [
+  { icon: Truck, title: 'Free delivery', text: 'On orders over $100' },
+  { icon: RotateCcw, title: '14-day returns', text: 'No questions asked' },
+  { icon: ShieldCheck, title: '2-year warranty', text: 'On every product' },
+  { icon: Headset, title: 'Support 24/7', text: 'We are here to help' },
+]
+
+const Section = ({ title, href, children }: { title: string; href?: string; children: React.ReactNode }) => (
+  <section>
+    <div className="mb-4 flex items-end justify-between">
+      <h2 className="text-xl font-bold">{title}</h2>
+      {href && <Link href={href} className="text-sm font-medium text-orange-600 hover:underline">View all</Link>}
+    </div>
+    {children}
+  </section>
+)
+
+const grid = 'grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4'
 
 export default function Home() {
-  const deals = products.filter((p) => p.old)
+  const deals = [...products].filter((p) => p.old).sort((a, b) => discount(b) - discount(a)).slice(0, 8)
+  const fresh = products.filter((p) => p.isNew).slice(0, 4)
   return (
     <div className="space-y-10">
-      <section className="flex flex-col items-start gap-4 rounded-3xl bg-slate-900 px-8 py-12 text-white sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm font-medium text-orange-400">Spring sale</p>
-          <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">Up to 15% off on phones, laptops and TVs</h1>
-          <Link href="/catalog" className="mt-6 inline-block rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold hover:bg-orange-600">
-            Shop now
-          </Link>
-        </div>
-        <div className="text-8xl" aria-hidden>
-          ⚡
-        </div>
-      </section>
+      <HeroSlider />
 
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-        {categories.map((c) => (
-          <Link
-            key={c.id}
-            href={`/catalog?cat=${c.id}`}
-            className="flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-white py-5 text-sm font-medium transition hover:border-orange-400"
-          >
-            <span className="text-3xl">{c.icon}</span>
-            {c.name}
-          </Link>
+      <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {perks.map(({ icon: Icon, title, text }) => (
+          <div key={title} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+            <Icon className="size-7 shrink-0 text-orange-500" strokeWidth={1.75} />
+            <div>
+              <p className="text-sm font-semibold">{title}</p>
+              <p className="text-xs text-slate-500">{text}</p>
+            </div>
+          </div>
         ))}
       </section>
 
-      <section>
-        <h2 className="mb-4 text-xl font-bold">Deals of the week</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {deals.slice(0, 8).map((p) => (
-            <ProductCard key={p.id} p={p} />
+      <Section title="Shop by category">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {categories.map((c) => (
+            <Link key={c.id} href={`/catalog?cat=${c.id}`} className="group rounded-2xl border border-slate-200 bg-white p-3 text-center text-sm font-medium transition hover:border-orange-400">
+              <ProductArt kind={c.kind} hue={22} className="aspect-square w-full rounded-xl transition group-hover:scale-105" />
+              <span className="mt-2 block">{c.name}</span>
+            </Link>
           ))}
         </div>
-      </section>
+      </Section>
+
+      <Section title="Deals of the week" href="/catalog?sale=1">
+        <div className={grid}>{deals.map((p) => <ProductCard key={p.id} p={p} />)}</div>
+      </Section>
+
+      <Section title="New arrivals">
+        <div className={grid}>{fresh.map((p) => <ProductCard key={p.id} p={p} />)}</div>
+      </Section>
+
+      <Section title="Popular brands">
+        <div className="flex flex-wrap gap-3">
+          {brands.map((b) => (
+            <Link key={b} href={`/catalog?brand=${b}`} className="rounded-full border border-slate-200 bg-white px-6 py-2.5 text-sm font-semibold tracking-wide text-slate-600 hover:border-orange-400 hover:text-orange-600">
+              {b}
+            </Link>
+          ))}
+        </div>
+      </Section>
     </div>
   )
 }
