@@ -15,6 +15,10 @@ Repo: github.com/ilkinQuliyev123/volt-store (public)
 7. **Do not copy brands/assets** of reference sites — layout inspiration only, own name and look.
 8. **Model routing:** simple/mechanical tasks (scaffolding, renaming, data files, screenshots, README) go to lighter models (Agent `model: "haiku"` or `"sonnet"`); complex tasks (architecture, state logic, tricky bugs, review) go to the strongest model. Pick the lightest model that can do the job.
 
+## Gotchas
+- Netlify deploy on Windows: `@netlify/plugin-nextjs` renames `.next` and fails with "Failed publishing static content" when files are locked. Deploy from a clean copy: tar the project without node_modules/.next/.git to a temp dir, `npm ci`, `netlify deploy --prod --build --site <id>`.
+- New Netlify sites are team-protected (HTTP 401 for visitors) until Visitor access is disabled in the Netlify UI (owner action).
+
 ## Progress
 - [x] Scaffold (Next 16, `cacheComponents` on: searchParams must be read inside <Suspense>; dynamic routes need generateStaticParams)
 - [x] Data (src/lib/data.ts, 16 demo products, emoji icons), cart context (localStorage)
